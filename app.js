@@ -1,4 +1,16 @@
 const choices = ['rock', 'paper', 'scissors'];
+
+const rockBtn = document.getElementById('r');
+const paperBtn = document.getElementById('p');
+const scissorsBtn = document.getElementById('s');
+
+const displayContainer = document.querySelector('.results-display');
+const buttons = document.querySelector('.buttons-display');
+
+const userScoreDisplay = document.querySelector('.user-score');
+const computerScoreDisplay = document.querySelector('.computer-score');
+const description = document.querySelector('.description');
+
 let computerSelection;
 let userSelection;
 
@@ -10,33 +22,86 @@ const computerPlay = function() {
     return  choices[random];
 }
 
-function playRound(userSelection, computerSelection) {
-    userSelection = prompt('Rock, paper, or scissors?').toLowerCase();
-    computerSelection = computerPlay();
-    if(userSelection !== 'rock' && userSelection !=='paper' && userSelection !== 'scissors') {
-        playRound(userSelection, computerSelection)
-    } else if(userSelection === computerSelection) {
-        console.log(`DRAW. user score is ${userScore} and computer score is ${computerScore}`);
-        return `${userSelection} ties ${computerSelection}.  It's a draw!`;
-    } else if(userSelection === 'rock' && computerSelection === 'scissors' || userSelection === 'paper' && computerSelection === 'rock' || userSelection === 'scissors' && computerSelection === 'paper') {
-        userScore++;
-        console.log(`User Wins! user score is ${userScore} and computer score is ${computerScore}`);
-        return `${userSelection} beats ${computerSelection}.  User WINS!`;
-    } else if(userSelection === 'rock' && computerSelection === 'paper' || userSelection === 'paper' && computerSelection === 'scissors' || userSelection === 'scissors' && computerSelection === 'rock') {
-        computerScore++;
-        console.log(`Computer Wins! user score is ${userScore} and computer score is ${computerScore}`);
-        return `${computerSelection} defeats ${userSelection}. Computer Wins!`;
-    }
+function playRound(userSelection) {
+  let computerSelection = computerPlay();
+  switch(userSelection + computerSelection) {
+      case 'rockrock':
+      case 'paperpaper':
+      case 'scissorsscissors':
+          draw(userSelection, computerSelection);
+          break;
+      case 'rockscissors':
+      case 'scissorspaper':
+      case 'paperrock':
+          win(userSelection, computerSelection);
+          break;
+      case 'rockpaper':
+      case 'paperscissors':
+      case 'scissorsrock':
+          lose(userSelection, computerSelection);
+          break;
+  }
 } 
 
 function game() {
-    while(computerScore < 5 && userScore < 5) {
-        playRound();
-    } if(userScore === 5) {
-        return 'USER WINS BABY!'
-    } else if (computerScore === 5) {
-        return 'COMPUTER WINS WTF'
-    }
+    rockBtn.addEventListener('click', () => playRound('rock'));
+    paperBtn.addEventListener('click', () => playRound('paper'));
+    scissorsBtn.addEventListener('click', () => playRound('scissors'));
 }
 
-console.log(game())
+
+function win(userSelection, computerSelection) {
+    userScore++;
+    userScoreDisplay.innerText = `${userScore}`;
+    computerScoreDisplay.innerText = `${computerScore}`;
+    description.innerText = `${userSelection} defeats ${computerSelection}.  User wins this round!`;
+
+    //check for winner
+    if(userScore > 4) {
+        userWin();
+    } else return;
+}
+function lose(userSelection, computerSelection) {
+    computerScore++;
+    userScoreDisplay.innerText = `${userScore}`;
+    computerScoreDisplay.innerText = `${computerScore}`;
+    description.innerText = `${userSelection} is defeated by ${computerSelection}.  Computer wins this round...`;
+
+    //check for loss
+    if(computerScore > 4) {
+        computerWin();
+    } else return;
+}
+function draw(userSelection, computerSelection) {
+    userScoreDisplay.innerText = `${userScore}`;
+    computerScoreDisplay.innerText = `${computerScore}`;
+    description.innerText = `${userSelection} ties ${computerSelection}.  It's a draw!`;
+}
+
+function userWin() {
+    description.innerText = 'USER WINS!!!';
+    displayContainer.classList.add = 'game-over';
+    buttons.style.display = 'none';
+    createResetBtn();
+}
+function computerWin() {
+    description.innerText = 'COMPUTER WINS!!!';
+    displayContainer.classList.add = 'game-over';
+    buttons.style.display = 'none';
+    createResetBtn();
+}
+
+function createResetBtn() {
+    const resetBtn = document.createElement('button');
+    resetBtn.classList.add('reset-btn');
+    resetBtn.innerText = 'Reset Game';
+    displayContainer.appendChild(resetBtn);
+    resetBtn.addEventListener('click', e => {
+        location.reload();
+        return false;
+    });
+}
+
+
+
+game();

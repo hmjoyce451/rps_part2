@@ -1,0 +1,28 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.results-display {
+    height: 50vh;
+    width: 75vw;
+    background-color: beige;
+    border-radius: 1rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    margin: 2rem auto;
+}
+.buttons-display {
+    width: 60vw;
+    display: flex;
+    justify-content: space-around;
+    margin: 2rem auto;
+}
+.btn {
+    font-size: 3rem;
+    border: 1px solid #000;
+    border-radius: 50%;
+    background-color: #fff;
+    text-align: center;
+    height: 4rem;
+    width: 4rem;
+}
