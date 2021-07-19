@@ -52,8 +52,8 @@ function game() {
 
 function win(userSelection, computerSelection) {
     userScore++;
-    userScoreDisplay.innerText = `${userScore}`;
-    computerScoreDisplay.innerText = `${computerScore}`;
+    userScoreDisplay.innerText = `User Score: ${userScore}`;
+    computerScoreDisplay.innerText = `Computer Score: ${computerScore}`;
     description.innerText = `${userSelection} defeats ${computerSelection}.  User wins this round!`;
 
     //check for winner
@@ -63,8 +63,8 @@ function win(userSelection, computerSelection) {
 }
 function lose(userSelection, computerSelection) {
     computerScore++;
-    userScoreDisplay.innerText = `${userScore}`;
-    computerScoreDisplay.innerText = `${computerScore}`;
+    userScoreDisplay.innerText = `User Score: ${userScore}`;
+    computerScoreDisplay.innerText = `Computer Score: ${computerScore}`;
     description.innerText = `${userSelection} is defeated by ${computerSelection}.  Computer wins this round...`;
 
     //check for loss
@@ -73,8 +73,8 @@ function lose(userSelection, computerSelection) {
     } else return;
 }
 function draw(userSelection, computerSelection) {
-    userScoreDisplay.innerText = `${userScore}`;
-    computerScoreDisplay.innerText = `${computerScore}`;
+    userScoreDisplay.innerText = `User Score: ${userScore}`;
+    computerScoreDisplay.innerText = `Computer Score: ${computerScore}`;
     description.innerText = `${userSelection} ties ${computerSelection}.  It's a draw!`;
 }
 
@@ -101,7 +101,5 @@ function createResetBtn() {
         return false;
     });
 }
-
-
 
 game();
